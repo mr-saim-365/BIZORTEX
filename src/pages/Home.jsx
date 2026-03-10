@@ -1,8 +1,9 @@
-
 // src/pages/Home.jsx
 import React from 'react';
 import Hero from "../components/Hero";
 import Service from "../components/Service";
+import About from "../components/About";
+import Process from "../components/Process";
 import ScrollTop from "../components/ScrollTop";
 import FeaturedProducts from "../components/FeaturedProducts";
 import Footer from "../components/Footer";
@@ -22,10 +23,18 @@ const Home = () => {
       const element = document.getElementById(scrollTo);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" });
-        }, 100); // slight delay to ensure DOM is rendered
+          const offset = 80;
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = element.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
 
-        // Optional: Clean up the URL
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }, 100); 
+
         navigate("/", { replace: true });
       }
     }
@@ -35,7 +44,9 @@ const Home = () => {
     <>
       <Hero />
       <FeaturedProducts />
+      <About />
       <Service />
+      <Process />
       <ScrollTop />
       <Footer />
     </>

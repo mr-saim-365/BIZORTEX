@@ -1,99 +1,93 @@
 'use client';
-import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment } from '@react-three/drei';
+import React, { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, Environment, MeshTransmissionMaterial, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
-const CubeBlock = () => {
-  const cubeSize = 0.95;
-  const gap = 0.05;
-  const offset = cubeSize + gap;
-  const blocks = [];
+const AnimatedCube = () => {
+  const meshRef = useRef();
+  const innerRef = useRef();
 
-
-  const blackMaterial = new THREE.MeshStandardMaterial({
-    color: 0x000000,
-    metalness: 0.5,
-    roughness: 0.2,
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (meshRef.current) {
+        meshRef.current.rotation.y = t * 0.2;
+        meshRef.current.rotation.z = t * 0.1;
+    }
+    if (innerRef.current) {
+        innerRef.current.rotation.y = -t * 0.4;
+        innerRef.current.rotation.x = t * 0.2;
+    }
   });
 
-  const whiteMaterial = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
-    metalness: 0.1,
-    roughness: 0.1,
-  });
-
-
-  const getFaceMaterials = (x, y, z) => {
- 
-    const materials = Array(6).fill(blackMaterial);
-
-
-    if (x === -1) {
-      materials[0] = whiteMaterial; 
-    }
-    if (y === -1) {
-      materials[2] = whiteMaterial; 
-    }
-    if (z === -1) {
-      materials[4] = whiteMaterial;
-    }
-
-    return materials;
-  };
-
-  
-  for (let x = -1; x <= 1; x++) {
-    for (let y = -1; y <= 1; y++) {
-      for (let z = -1; z <= 1; z++) {
-        blocks.push(
-          <mesh
-            key={`${x}-${y}-${z}`}
-            position={[x * offset, y * offset, z * offset]}
-            geometry={new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize)}
-            material={getFaceMaterials(x, y, z)}
+  return (
+    <group>
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+        {/* Outer Glass/Metallic Cube */}
+        <mesh ref={meshRef}>
+          <boxGeometry args={[2.5, 2.5, 2.5]} />
+          <MeshTransmissionMaterial
+            backside
+            samples={16}
+            thickness={0.5}
+            chromaticAberration={0.05}
+            anisotropy={0.1}
+            distortion={0.1}
+            distortionScale={0.1}
+            temporalDistortion={0.1}
+            clearcoat={1}
+            attenuationDistance={0.5}
+            attenuationColor="#ffffff"
+            color="#e11d48"
           />
-        );
-      }
-    }
-  }
+        </mesh>
 
-  return <group rotation={[Math.PI * 0.2, -Math.PI * 0.25, 0]}>{blocks}</group>;
+        {/* Inner Core */}
+        <mesh ref={innerRef}>
+           <boxGeometry args={[1.2, 1.2, 1.2]} />
+           <meshStandardMaterial 
+             color="#7c3aed" 
+             emissive="#7c3aed" 
+             emissiveIntensity={2} 
+             metalness={1} 
+             roughness={0} 
+           />
+        </mesh>
+      </Float>
+    </group>
+  );
 };
 
 const GlossyCube = () => {
   return (
-    <Canvas
-      camera={{ position: [5, 5, 5], fov: 45 }}
-    >
-      {/* Ambient light for general lighting */}
-      <ambientLight intensity={0.3} />
-      
-      {/* Directional lights at each corner */}
-      <directionalLight position={[1, 1, 1]} intensity={1.2} />
-      <directionalLight position={[-1, 1, 1]} intensity={1.2} />
-      <directionalLight position={[1, -1, 1]} intensity={1.2} />
-      <directionalLight position={[-1, -1, 1]} intensity={1.2} />
+    <div className="w-full h-full">
+      <Canvas camera={{ position: [0, 0, 8], fov: 35 }} alpha={true}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={150} color="#e11d48" />
+        <pointLight position={[-10, -10, -10]} intensity={100} color="#7c3aed" />
+        <spotLight
+          position={[0, 5, 10]}
+          angle={0.15}
+          penumbra={1}
+          intensity={200}
+          castShadow
+          color="#ffffff"
+        />
 
-      {/* Spot light for more dramatic effect */}
-      <spotLight 
-        position={[-10, 10, 10]} 
-        angle={0.3} 
-        penumbra={1} 
-        intensity={2} 
-        castShadow 
-      />
+        <AnimatedCube />
 
-      <CubeBlock />
-      
-      {/* OrbitControls with auto-rotation enabled */}
-      <OrbitControls 
-        enableZoom={false} 
-        autoRotate={true} 
-        enablePan={false}
-      />
-      <Environment preset="studio" />
-    </Canvas>
+        <ContactShadows
+          position={[0, -3.5, 0]}
+          opacity={0.4}
+          scale={15}
+          blur={2.5}
+          far={4}
+          color="#000000"
+        />
+
+        <Environment preset="city" />
+      </Canvas>
+    </div>
   );
 };
 

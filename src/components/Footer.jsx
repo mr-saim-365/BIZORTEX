@@ -1,254 +1,136 @@
 import React from "react";
-import { FaFacebookF } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaLinkedinIn } from "react-icons/fa";
-import { IoLogoInstagram } from "react-icons/io5";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
-import footerImage from "/images/footerImage.png";
+import { FaFacebookF, FaLinkedinIn, FaInstagram, FaTwitter } from "react-icons/fa";
+import { motion } from "framer-motion";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Footer = () => {
-  const controls = useAnimation();
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [inView, controls]);
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleScrollNavigation = (sectionId) => {
     if (location.pathname !== "/") {
-      // If NOT on home → navigate with query param
       navigate(`/?scrollTo=${sectionId}`);
     } else {
-      // If already on home → scroll directly
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
       }
     }
   };
 
   return (
-    <footer id="footer" className="text-[#ffffff] relative">
-      <div
-        style={{ backgroundImage: `url(${footerImage})` }}
-        ref={ref}
-        className="w-full flex flex-col items-center"
-      >
-        <motion.div
-          className="py-[80px]  md:w-[90%] px-8 md:px-0 flex items-center justify-center"
-          initial="hidden"
-          animate={controls}
-          variants={containerVariants}
-        >
-          <motion.div
-            className="flex flex-wrap gap-8 justify-between w-full"
-            variants={containerVariants}
-          >
-            <motion.div
-              className="flex-1 min-w-[250px]"
-              variants={itemVariants}
-            >
-              <Link href="index.html" className="flex items-center mb-6">
-                <span className="text-3xl md:text-4xl font-bold tracking-wide">
-                  BIZORTEX
-                </span>
-              </Link>
+    <footer className="bg-[#050505] border-t border-white/5 pt-24 pb-12 overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12 relative">
+        {/* Background Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10"></div>
 
-              <div className="flex flex-col space-y-4 mt-4 justify-center items-start">
-                <div>
-                  <h2 className="text-sm md:text-base 2xl:text-[20px] text-[#FFFFFFB8] font-semibold">
-                    Follow Us
-                  </h2>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+          {/* Brand Info */}
+          <div className="lg:col-span-1">
+            <Link to="/" className="text-3xl font-black text-white tracking-tighter mb-8 block">
+              BIZ<span className="text-primary italic">ORTEX</span>
+            </Link>
+            <p className="text-white/40 leading-relaxed font-medium mb-10">
+              Transforming ambitious ideas into world-class digital realities through 
+              strategic design and high-performance engineering.
+            </p>
+            <div className="flex gap-4">
+              {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn].map((Icon, idx) => (
+                <a key={idx} href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
+                  <Icon />
+                </a>
+              ))}
+            </div>
+          </div>
 
-                <div className="flex space-x-3 justify-center items-start">
-                  <Link
-                    to="#"
-                    className="flex items-center justify-center w-10 h-10 rounded-full border-[#FFFFFF25] border-2 bg-[#FFFFFF20] transition-all hover:scale-105 hover:bg-[#FFFFFF40] hover:border-[#FFFFFF40]"
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white font-bold mb-8 uppercase tracking-widest text-xs">Navigation</h4>
+            <ul className="space-y-4">
+              {[
+                { label: "Home", to: "/" },
+                { label: "Services", id: "services" },
+                { label: "About Us", id: "AboutUs" },
+                { label: "Process", id: "process" },
+                { label: "Contact", to: "/Contact" }
+              ].map((link) => (
+                <li key={link.label}>
+                  <button 
+                    onClick={() => link.id ? handleScrollNavigation(link.id) : navigate(link.to)}
+                    className="text-white/40 font-medium hover:text-primary transition-colors text-left"
                   >
-                    <FaXTwitter size={20} />
-                  </Link>
-                  <Link
-                    to="#"
-                    className="flex items-center justify-center w-10 h-10 rounded-full border-2 hover:text-blue-700 transition-all  border-[#FFFFFF25] bg-[#FFFFFF20] hover:scale-105 hover:bg-[#FFFFFF40] hover:border-[#FFFFFF40]"
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="text-white font-bold mb-8 uppercase tracking-widest text-xs">Expertise</h4>
+            <ul className="space-y-4">
+              {[
+                "Web Development",
+                "Brand Identity",
+                "Software Consulting",
+                "Digital Marketing",
+                "Business Automation",
+                "Cloud Solutions"
+              ].map((service) => (
+                <li key={service}>
+                  <button 
+                    onClick={() => handleScrollNavigation("services")}
+                    className="text-white/40 font-medium hover:text-primary transition-colors text-left"
                   >
-                    <FaFacebookF size={20} />
-                  </Link>
-                  <Link
-                    to="#"
-                    className="flex items-center justify-center w-10 h-10 rounded-full border-2 hover:text-pink-500 transition-all  border-[#FFFFFF25] bg-[#FFFFFF20]  hover:scale-105 hover:bg-[#FFFFFF40] hover:border-[#FFFFFF40]"
-                  >
-                    <IoLogoInstagram size={20} />
-                  </Link>
-                  <Link
-                    to="#"
-                    className="flex items-center justify-center w-10 h-10 rounded-full border-2 hover:text-[#0A66C2] transition-all  border-[#FFFFFF25] bg-[#FFFFFF20]  hover:scale-105 hover:bg-[#FFFFFF40] hover:border-[#FFFFFF40]"
-                  >
-                    <FaLinkedinIn size={20} />
-                  </Link>
-                </div>
+                    {service}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-white font-bold mb-8 uppercase tracking-widest text-xs">Get in Touch</h4>
+            <div className="space-y-6">
+              <div>
+                <span className="text-white/20 block text-[10px] uppercase font-bold tracking-widest mb-1">Direct Line</span>
+                <p className="text-white font-medium text-lg">+92 321 2427626</p>
               </div>
-            </motion.div>
+              <div>
+                <span className="text-white/20 block text-[10px] uppercase font-bold tracking-widest mb-1">Inquiries</span>
+                <p className="text-white font-medium text-lg">infoclix@gmail.com</p>
+              </div>
+              <button 
+                onClick={() => navigate("/Contact")}
+                className="w-full py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/80 transition-all shadow-lg shadow-primary/20"
+              >
+                Start a Project
+              </button>
+            </div>
+          </div>
+        </div>
 
-            <motion.div
-              className="flex-1 min-w-[200px] justify-center items-center"
-              variants={itemVariants}
-            >
-              <h4 className="text-sm md:text-base 2xl:text-[20px] text-[#FFFFFFB8] font-semibold pb-3">
-                Quick Links
-              </h4>
-              <ul className="space-y-2 font-medium ">
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="/"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    onClick={(e) => {
-                      e.preventDefault(); // 🔥 VERY IMPORTANT
-                      handleScrollNavigation("services");
-                    }}
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                  >
-                    0ur Services
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleScrollNavigation("AboutUs");
-                    }}
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="/Contact"
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              className="flex-1 min-w-[200px]"
-              variants={itemVariants}
-            >
-              <h4 className="font-semibold text-sm md:text-base 2xl:text-[20px] text-[#FFFFFFB8] pb-3">
-                Our Services
-              </h4>
-              <ul className="space-y-2 font-medium">
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="#"
-                  >
-                    Web Development
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="#"
-                  >
-                    Logo Design
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="#"
-                  >
-                    Software Consultancy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="#"
-                  >
-                    Graphic Designing
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="#"
-                  >
-                    Digital Marketing
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-[#f14160] inline-block transition-transform duration-200 hover:scale-105"
-                    to="#"
-                  >
-                    Accounts Consultancy
-                  </Link>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              className="flex-1 min-w-[250px] "
-              variants={itemVariants}
-            >
-              <h4 className="text-base font-bold pb-3 text-[#FFFFFFB8]">
-                Contact Us
-              </h4>
-              <p className="mt-4">
-                <strong>Phone:</strong> <span>0321-2427626</span>
-              </p>
-              <p>
-                <strong>Email:</strong> <span>infoclix@gmail.com</span>
-              </p>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+        {/* Bottom Bar */}
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-white/20 text-sm font-medium">
+            © {new Date().getFullYear()} BIZORTEX. All Rights Reserved.
+          </p>
+          <div className="flex gap-8">
+            <a href="#" className="text-white/20 text-xs font-bold hover:text-white transition-colors uppercase tracking-widest">Privacy Policy</a>
+            <a href="#" className="text-white/20 text-xs font-bold hover:text-white transition-colors uppercase tracking-widest">Terms of Service</a>
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -1,44 +1,20 @@
 "use client";
-import React from "react";
-import Navbar from "../components/Navbar";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-
-import { FaArrowRight } from "react-icons/fa";
-import bgcontact from "/images/bgcontact.jpg";
-
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
 
 const Contact = () => {
   const [email, setEmail] = useState("");
-  const [Name, setName] = useState("");
+  const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const [cellNumber, setCellNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [status, setStatus] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!Name || !email || !cellNumber || !message) {
+    if (!name || !email || !phone || !message) {
       setStatus("error");
       return;
     }
@@ -48,9 +24,9 @@ const Contact = () => {
     const publicKey = "1T9xbZKxb37vbLUVd";
 
     const templateParams = {
-      from_Name: Name,
+      from_name: name,
       from_email: email,
-      from_phone: cellNumber,
+      from_phone: phone,
       message,
     };
 
@@ -60,7 +36,7 @@ const Contact = () => {
       setName("");
       setEmail("");
       setMessage("");
-      setCellNumber("");
+      setPhone("");
     } catch (error) {
       console.error("Email sending error:", error);
       setStatus("emailError");
@@ -68,365 +44,160 @@ const Contact = () => {
   };
 
   return (
-    <>
-      <Navbar />
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="overflow-hidden"
-      >
-        <div className="pt-16 text-[#222222]">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="mx-auto text-center mb-16"
-          >
-            <motion.h2
-              variants={fadeUp}
-              className="text-3xl sm:text-5xl 2xl:text-6xl font-bold mb-4"
-            >
-              Contact Us
-            </motion.h2>
-
-            <motion.p variants={fadeUp} className="text-base opacity-70">
-              Reach out today and let's start shaping your success together.
-            </motion.p>
-          </motion.div>
-
-          <div
-            className="w-full md:w-[95%] 2xl:w-[85%] mx-auto 
-        flex flex-col lg:flex-row gap-16 py-20 px-4 justify-between md:px-0"
-          >
+    <div className="bg-[#050505] min-h-screen text-white">
+      
+      <main className="pt-32 pb-24">
+        <div className="container mx-auto px-6 md:px-12">
+          
+          {/* Header */}
+          <div className="max-w-4xl mx-auto text-center mb-24">
             <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="flex flex-col gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="flex items-center gap-1">
-                <img src="/images/Rectangle.png" alt="Rectangle" />
-
-                <p className="text-base sm:text-lg font-semibold">
-                  Got A Question?
-                </p>
-              </div>
-
-              <h1
-                className="uppercase 
-            text-4xl sm:text-6xl 2xl:text-[72px] 
-            font-bold leading-[1.05] tracking-tight"
-              >
-                Get in touch <br /> with us
+              <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Connection</span>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-[1.1]">
+                Let's Build Your <br />
+                <span className="text-primary italic">Digital Legacy</span>
               </h1>
-            </motion.div>
-
-            <motion.div
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-8"
-            >
-              {[
-                {
-                  icon: <FaPhoneAlt />,
-                  title: "Call Us",
-                  desc: "Give us a call – always happy to talk digital!",
-                  link: "tel:+12623318793",
-                  text: "+1 (262) 331-8793",
-                },
-                {
-                  icon: <FaEnvelope />,
-                  title: "Email Us",
-                  desc: "Drop us a note – we’ll get back quickly!",
-                  link: "mailto:hello@email.com",
-                  text: "hello@email.com",
-                },
-                {
-                  icon: <FaMapMarkerAlt />,
-                  title: "Visit Us",
-                  desc: "Come meet us in person anytime!",
-                  link: "#",
-                  text: "View Location",
-                },
-              ].map((card, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group p-8 
-                bg-white rounded-2xl shadow-xl
-                border border-gray-100
-                transition duration-300 hover:shadow-2xl hover:bg-[#262626] hover:text-white"
-                >
-                  <div className="mb-6 text-2xl text-[#ef476f]">
-                    {card.icon}
-                  </div>
-
-                  <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
-
-                  <p className=" mb-6 font-medium">{card.desc}</p>
-
-                  <a
-                    href={card.link}
-                    className="inline-flex items-center gap-2
-                  text-[#ef476f] font-semibold
-                  group-hover:gap-4 transition-all duration-300"
-                  >
-                    {card.text}
-                    <FaArrowRight />
-                  </a>
-                </motion.div>
-              ))}
+              <p className="text-xl text-white/50 leading-relaxed font-medium">
+                Ready to transform your vision into a high-performance digital reality? 
+                Reach out today and let's start the journey.
+              </p>
             </motion.div>
           </div>
 
-          <motion.div
-            style={{ backgroundImage: `url(${bgcontact})` }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-            className="bg-cover bg-center"
-          >
-            <div
-              className="py-20 px-4 md:px-0 
-          flex flex-col lg:flex-row gap-16
-          w-full md:w-[95%] 2xl:w-[85%] justify-between mx-auto"
-            >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            {/* Contact Info */}
+            <div className="lg:col-span-5 space-y-12">
               <motion.div
-                initial={{ opacity: 0, x: -60 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-white lg:w-[40%]"
               >
-                <h1 className="text-4xl sm:text-5xl 2xl:text-7xl font-bold leading-tight">
-                  Let's Create Something Epic Together.
-                </h1>
+                <h2 className="text-3xl font-bold mb-10 text-white">Contact Information</h2>
+                
+                <div className="space-y-8">
+                  {[
+                    { icon: <FaPhoneAlt />, title: "Call Us", details: "+92 321 2427626", sub: "Mon-Fri from 9am to 6pm" },
+                    { icon: <FaEnvelope />, title: "Email Us", details: "infoclix@gmail.com", sub: "We'll respond within 24 hours" },
+                    { icon: <FaMapMarkerAlt />, title: "Visit Us", details: "Digital Plaza, Tech District", sub: "Schedule an appointment first" }
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex gap-6 items-start group">
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xl text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold text-white mb-1">{item.title}</h4>
+                        <p className="text-white font-medium">{item.details}</p>
+                        <p className="text-white/30 text-sm">{item.sub}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 60, scale: 0.95 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="bg-white rounded-2xl shadow-2xl 
-              p-8 w-full max-w-xl"
-              >
-                <h2 className="text-3xl font-bold mb-8">
-                  Enter Your Contact Details
-                </h2>
+              {/* Decorative Accent */}
+              <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-primary/20 to-transparent border border-white/5 relative overflow-hidden">
+                <div className="relative z-10">
+                  <h4 className="text-xl font-bold mb-4">Strategic Partnership</h4>
+                  <p className="text-white/50 leading-relaxed">
+                    We don't just take orders. We become your technical partners, 
+                    deeply invested in your project's long-term success.
+                  </p>
+                </div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl -z-0"></div>
+              </div>
+            </div>
 
-                {/* <form  className="flex flex-col gap-8">
-                  {["Name", "Email", "Phone"].map((field, i) => (
-                    <div key={i} className="relative">
+            {/* Form */}
+            <div className="lg:col-span-7">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                className="bg-white/[0.02] border border-white/10 p-10 md:p-14 rounded-[3rem] backdrop-blur-3xl relative"
+              >
+                {/* Form Glow */}
+                <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full -z-10"></div>
+                
+                <form onSubmit={handleSubmit} className="space-y-10 relative z-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold uppercase tracking-widest text-white/30 ml-4">Full Name</label>
                       <input
                         type="text"
                         required
-                        placeholder=" "
-                        className="peer w-full border-b-2 border-gray-300
-                      outline-none py-3 bg-transparent font-semibold"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/50 transition-all font-medium"
                       />
-                      <label
-                        className="absolute left-0 top-3
-                      text-gray-700 font-semibold transition-all
-                      peer-placeholder-shown:top-3
-                      peer-placeholder-shown:text-lg
-                      peer-focus:-top-2
-                      peer-focus:text-sm
-                      peer-focus:text-[#ef476f]
-                      peer-valid:-top-2
-                      peer-valid:text-sm
-                      peer-valid:text-[#ef476f]"
-                      >
-                        {field} *
-                      </label>
                     </div>
-                  ))}
-
-                  <div className="relative w-full">
-                    <textarea
-                      required
-                      placeholder=" "
-                      className="peer w-full border-b-2 border-gray-300
-                font-semibold outline-none py-3
-                resize-none h-24 bg-transparent"
-                    />
-                    <label
-                      className="absolute left-0 top-3 font-semibold
-                text-[#222222] transition-all
-                peer-placeholder-shown:top-3
-                peer-placeholder-shown:text-lg
-                peer-focus:-top-2
-                peer-focus:text-sm
-                peer-focus:text-[#ef476f]
-                peer-valid:-top-2
-                peer-valid:text-sm
-                  peer-valid:text-[#ef476f]"
-                    >
-                      Message *
-                    </label>
+                    <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/30 ml-4">Email Address</label>
+                        <input
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="john@example.com"
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/50 transition-all font-medium"
+                        />
+                    </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center gap-2
-                  bg-[#ef476f] text-white font-semibold
-                  px-6 py-3 rounded-full w-max
-                  hover:scale-105 active:scale-95
-                  transition duration-300 mt-4"
-                  >
-                    Send Message
-                    <FaArrowRight />
-                  </button>
-                </form> */}
-                <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-                  {/* Name */}
-                  <div className="relative">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-white/30 ml-4">Phone Number</label>
                     <input
                       type="text"
                       required
-                      value={Name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder=" "
-                      className="peer w-full border-b-2 border-gray-300
-      outline-none py-3 bg-transparent font-semibold"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+92 3XX XXXXXXX"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/50 transition-all font-medium"
                     />
-                    <label
-                      className="absolute left-0 top-3 text-gray-700 font-semibold transition-all
-      peer-placeholder-shown:top-3
-      peer-placeholder-shown:text-lg
-      peer-focus:-top-2
-      peer-focus:text-sm
-      peer-focus:text-[#ef476f]
-      peer-valid:-top-2
-      peer-valid:text-sm
-      peer-valid:text-[#ef476f]"
-                    >
-                      Name *
-                    </label>
                   </div>
 
-                  {/* Email */}
-                  <div className="relative">
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder=" "
-                      className="peer w-full border-b-2 border-gray-300
-      outline-none py-3 bg-transparent font-semibold"
-                    />
-                    <label
-                      className="absolute left-0 top-3 text-gray-700 font-semibold transition-all
-      peer-placeholder-shown:top-3
-      peer-placeholder-shown:text-lg
-      peer-focus:-top-2
-      peer-focus:text-sm
-      peer-focus:text-[#ef476f]
-      peer-valid:-top-2
-      peer-valid:text-sm
-      peer-valid:text-[#ef476f]"
-                    >
-                      Email *
-                    </label>
-                  </div>
-
-                  {/* Phone */}
-                  <div className="relative">
-                    <input
-                      type="text"
-                      required
-                      value={cellNumber}
-                      onChange={(e) => setCellNumber(e.target.value)}
-                      placeholder=" "
-                      className="peer w-full border-b-2 border-gray-300
-      outline-none py-3 bg-transparent font-semibold"
-                    />
-                    <label
-                      className="absolute left-0 top-3 text-gray-700 font-semibold transition-all
-      peer-placeholder-shown:top-3
-      peer-placeholder-shown:text-lg
-      peer-focus:-top-2
-      peer-focus:text-sm
-      peer-focus:text-[#ef476f]
-      peer-valid:-top-2
-      peer-valid:text-sm
-      peer-valid:text-[#ef476f]"
-                    >
-                      Phone *
-                    </label>
-                  </div>
-
-                  {/* Message */}
-                  <div className="relative w-full">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-white/30 ml-4">Tell us about your project</label>
                     <textarea
                       required
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder=" "
-                      className="peer w-full border-b-2 border-gray-300
-      font-semibold outline-none py-3
-      resize-none h-24 bg-transparent"
+                      placeholder="Share your vision..."
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/50 transition-all h-40 resize-none font-medium"
                     />
-                    <label
-                      className="absolute left-0 top-3 font-semibold
-      text-[#222222] transition-all
-      peer-placeholder-shown:top-3
-      peer-placeholder-shown:text-lg
-      peer-focus:-top-2
-      peer-focus:text-sm
-      peer-focus:text-[#ef476f]
-      peer-valid:-top-2
-      peer-valid:text-sm
-      peer-valid:text-[#ef476f]"
-                    >
-                      Message *
-                    </label>
                   </div>
 
-                  {/* Status Messages */}
                   {status === "success" && (
-                    <p className="text-green-600 font-semibold">
-                      Message sent successfully!
-                    </p>
+                    <p className="text-green-400 font-bold text-center">Message sent successfully! We'll reach out soon.</p>
                   )}
                   {status === "error" && (
-                    <p className="text-red-500 font-semibold">
-                      Please fill all fields.
-                    </p>
+                    <p className="text-red-400 font-bold text-center">Please fill all fields to proceed.</p>
                   )}
                   {status === "emailError" && (
-                    <p className="text-red-500 font-semibold">
-                      Something went wrong. Try again.
-                    </p>
+                    <p className="text-red-400 font-bold text-center">Service temporarily unavailable. Please email us directly.</p>
                   )}
 
-                  {/* Submit */}
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-2 cursor-pointer
-    bg-[#ef476f] text-white font-semibold
-    px-6 py-3 rounded-full w-max
-    hover:scale-105 active:scale-95
-    transition duration-300 mt-4"
+                    className="w-full py-5 bg-primary text-white font-black rounded-2xl hover:bg-primary/80 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 group uppercase tracking-widest"
                   >
-                    Send Message
+                    Transmit Message
+                    <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
                   </button>
                 </form>
               </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
-      </motion.section>
+      </main>
+
       <Footer />
-    </>
+    </div>
   );
 };
 
