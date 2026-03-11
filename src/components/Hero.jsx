@@ -6,7 +6,7 @@ const LuminousMist = lazy(() => import("./LuminousMist"));
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-[100vh] flex items-center pt-32 bg-[#050505] overflow-hidden">
+    <section id="hero" className="relative min-h-[100vh] flex items-center pt-[12vh] lg:pt-[15vh] bg-[#050505] overflow-hidden">
       {/* Cinematic Luminous Mist Background */}
       <Suspense fallback={null}>
         <LuminousMist />
@@ -25,13 +25,13 @@ const Hero = () => {
               <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase bg-white/5 border border-white/10 rounded-full text-primary">
                 The Future of Digital Excellence
               </span>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-[1.1] tracking-tighter break-words">
+              <h1 className="text-[clamp(2.5rem,8vw,4.5rem)] lg:text-[clamp(3.5rem,6vw,6rem)] font-black mb-[clamp(1rem,3vh,1.5rem)] leading-[1.1] tracking-tighter break-words">
                 Transforming <br />
                 <span className="bg-gradient-to-r from-white via-white/80 to-primary bg-clip-text text-transparent">
                   Ideas into Impact
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-white/60 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/60 mb-[clamp(1.5rem,5vh,2.5rem)] max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                 Empowering world-class businesses through intelligent digital solutions, 
                 cutting-edge software, and premium brand experiences that redefine what's possible.
               </p>
@@ -76,7 +76,7 @@ const Hero = () => {
           </div>
 
           {/* Visual Element */}
-          <div className="hidden md:block w-full lg:w-5/12 h-[500px] md:h-[600px] relative pointer-events-none">
+          <div className="hidden md:block w-full lg:w-5/12 h-[40vh] md:h-[50vh] lg:h-[65vh] max-h-[600px] relative pointer-events-none">
             {/* <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-20 pointer-events-none h-20 bottom-0"></div> */}
             <div className="w-full h-full scale-95 md:scale-110">
               <Suspense fallback={<div className="w-full h-full bg-primary/5 rounded-3xl animate-pulse" />}>
