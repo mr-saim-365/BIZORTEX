@@ -47,7 +47,7 @@ const Preloader = () => {
             transition={{ delay: 0.5 }}
             className="text-white text-xs font-bold tracking-[0.5em] uppercase mb-4"
           >
-            BIZORTEX
+            Pen Technology
           </motion.h2>
           
           <div className="w-32 h-[1px] bg-white/10 relative overflow-hidden">

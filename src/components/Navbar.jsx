@@ -76,9 +76,9 @@ const Navbar = () => {
           {/* <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
              <span className="text-white font-bold text-xl">B</span>
           </div> */}
-          <img src="/images/logo.png" alt="logo" className="w-20 h-20"/>
+          {/* <img src="/images/logo.png" alt="logo" className="w-20 h-20"/> */}
           <span className="text-2xl font-bold tracking-tighter text-white">
-            BIZ<span className="text-primary">ORTEX</span>
+            Pen Technology
           </span>
         </Link>
 

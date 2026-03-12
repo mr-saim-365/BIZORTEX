@@ -13,13 +13,13 @@ export const blogs = [
     category: "Development",
     date: "March 11, 2026",
     readTime: "6 min read",
-    author: "BIZORTEX Engineering",
+    author: "Pen Technology Engineering",
     icon: FaRocket,
     image: "/home/azmeer/.gemini/antigravity/brain/c8db848a-9b9c-457b-972c-7b262752f967/blog_scalable_web_platforms_1773177602417.png",
     excerpt: "Learn how we build robust, high-performance web applications designed to grow with your business.",
     content: `
       <h2>The Foundation of Digital Growth</h2>
-      <p>In today's fast-paced digital landscape, a website is no longer just a static brochure. It is a living ecosystem that must scale seamlessly as your user base grows. At BIZORTEX, we prioritize scalability from day one.</p>
+      <p>In today's fast-paced digital landscape, a website is no longer just a static brochure. It is a living ecosystem that must scale seamlessly as your user base grows. At Pen Technology, we prioritize scalability from day one.</p>
       
       <h3>Why Scalability Matters</h3>
       <p>A scalable platform ensures that your user experience remains consistent regardless of traffic volume. Whether you have 100 or 1,000,000 concurrent users, your system should handle the load without breaking a sweat.</p>
@@ -44,7 +44,7 @@ export const blogs = [
     category: "AI & Automation",
     date: "March 11, 2026",
     readTime: "5 min read",
-    author: "BIZORTEX AI Team",
+    author: "Pen Technology AI Team",
     icon: FaLayerGroup,
     image: "/home/azmeer/.gemini/antigravity/brain/c8db848a-9b9c-457b-972c-7b262752f967/blog_intelligent_automation_1773177634737.png",
     excerpt: "Streamline your operations with custom AI-driven automation solutions that maximize efficiency.",
@@ -70,7 +70,7 @@ export const blogs = [
     category: "Cybersecurity",
     date: "March 11, 2026",
     readTime: "7 min read",
-    author: "BIZORTEX Security",
+    author: "Pen Technology Security",
     icon: FaShieldAlt,
     image: "/home/azmeer/.gemini/antigravity/brain/c8db848a-9b9c-457b-972c-7b262752f967/blog_secure_architecture_1773177782110.png",
     excerpt: "Security is at core of development. We implement enterprise-grade protection for your data.",
@@ -96,13 +96,13 @@ export const blogs = [
     category: "Design",
     date: "March 11, 2026",
     readTime: "4 min read",
-    author: "BIZORTEX Creative",
+    author: "Pen Technology Creative",
     icon: FaCode,
     image: "/home/azmeer/.gemini/antigravity/brain/c8db848a-9b9c-457b-972c-7b262752f967/blog_brand_design_1773177824261.png",
     excerpt: "Our philosophy merges aesthetics with strategy, creating visual identities that resonate.",
     content: `
       <h2>The Visual Language of Success</h2>
-      <p>Good design is more than just looking pretty; it's about communicating your brand values through every pixel. At BIZORTEX, we create visual systems that tell a story.</p>
+      <p>Good design is more than just looking pretty; it's about communicating your brand values through every pixel. At Pen Technology, we create visual systems that tell a story.</p>
       
       <h3>Emotional Connection</h3>
       <p>We research your target audience to understand their psychological triggers, allowing us to create designs that build immediate trust and emotional resonance.</p>
@@ -122,7 +122,7 @@ export const blogs = [
     category: "Analytics",
     date: "March 11, 2026",
     readTime: "5 min read",
-    author: "BIZORTEX Strategy",
+    author: "Pen Technology Strategy",
     icon: FaChartBar,
     image: "/home/azmeer/.gemini/antigravity/brain/c8db848a-9b9c-457b-972c-7b262752f967/blog_performance_insights_1773177842180.png",
     excerpt: "Leverage data-driven strategies and advanced analytics to optimize your digital presence.",
@@ -148,7 +148,7 @@ export const blogs = [
     category: "Technology",
     date: "March 11, 2026",
     readTime: "6 min read",
-    author: "BIZORTEX CTO",
+    author: "Pen Technology CTO",
     icon: FaLayerGroup,
     image: "/home/azmeer/.gemini/antigravity/brain/c8db848a-9b9c-457b-972c-7b262752f967/blog_tech_stack_1773177911606.png",
     excerpt: "We utilize the latest technologies to ensure your solutions are future-proof and efficient.",

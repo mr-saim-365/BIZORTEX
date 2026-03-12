@@ -37,7 +37,7 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="lg:col-span-1">
             <Link to="/" className="text-3xl font-black text-white tracking-tighter mb-8 block">
-              BIZ<span className="text-primary italic">ORTEX</span>
+              Pen Technology
             </Link>
             <p className="text-white/40 leading-relaxed font-medium mb-10">
               Transforming ambitious ideas into world-class digital realities through 
@@ -124,7 +124,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-white/20 text-sm font-medium">
-            © {new Date().getFullYear()} BIZORTEX. All Rights Reserved.
+            © {new Date().getFullYear()} Pen Technology. All Rights Reserved.
           </p>
           <div className="flex gap-8">
             <a href="#" className="text-white/20 text-xs font-bold hover:text-white transition-colors uppercase tracking-widest">Privacy Policy</a>

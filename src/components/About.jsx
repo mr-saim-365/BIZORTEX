@@ -42,7 +42,7 @@ const About = () => {
               <span className="text-primary italic">Digital Frontier</span>
             </h2>
             <p className="text-xl text-white/60 mb-8 leading-relaxed">
-              BIZORTEX is a premier digital solutions agency dedicated to transforming 
+              Pen Technology is a premier digital solutions agency dedicated to transforming 
               ambitious ideas into world-class software and brand experiences. 
               We bridge the gap between imagination and technical execution.
             </p>
