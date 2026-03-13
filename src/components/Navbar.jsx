@@ -76,10 +76,10 @@ const Navbar = () => {
           {/* <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
              <span className="text-white font-bold text-xl">B</span>
           </div> */}
-          {/* <img src="/images/logo.png" alt="logo" className="w-20 h-20"/> */}
-          <span className="text-2xl font-bold tracking-tighter text-white">
+          <img src="/images/logo.png" alt="logo" className="w-[120px] h-[120px]"/>
+          {/* <span className="text-2xl font-bold tracking-tighter text-white">
             Pen Technology
-          </span>
+          </span> */}
         </Link>
 
         {/* Desktop Navigation */}
@@ -122,7 +122,7 @@ const Navbar = () => {
           </div>
           <Link
             to="/Contact"
-            className="px-6 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:bg-primary hover:text-white transition-all duration-300 shadow-lg hover:shadow-primary/30"
+            className="px-6 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:bg-primary hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/30"
           >
             Get Started
           </Link>
